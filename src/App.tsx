@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import 'regenerator-runtime/runtime';
+import './App.css';
+import ClassPage from './components/classes/ClassPage';
+import SpeechComponent from './components/SpeechComponent';
+
+export var API_ROUTE = 'https://www.dnd5eapi.co';
+
+const appRoutes = [
+  {
+    path: '/class/:name',
+    element: <ClassPage />,
+    loader: async ({ params }) => {
+      let data = (
+        await fetch(`${API_ROUTE}/api/classes/${params.name.toLowerCase()}`)
+      ).json();
+      return data;
+    },
+  },
+  {
+    path: '/subclass/:name',
+    element: <ClassPage />,
+    loader: async ({ params }) => {
+      console.log(name);
+      let data = (
+        await fetch(`${API_ROUTE}/api/subclasses/${params.name.toLowerCase()}`)
+      ).json();
+      return data;
+    },
+  },
+  {
+    path: '/',
+    element: (
+      <div className='App' style={{ width: '1024px' }}>
+        <div className='card'>
+          <SpeechComponent />
+        </div>
+      </div>
+    ),
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const appRouter = createBrowserRouter(appRoutes);
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+            cacheTime: Infinity,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+          },
+        },
+      })
+  );
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={appRouter} />
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
