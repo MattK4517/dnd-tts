@@ -33,7 +33,7 @@ const appRoutes = [
     },
   },
   {
-    path: '/',
+    path: '/dnd-tts/',
     element: (
       <div className='App' style={{ width: '1024px' }}>
         <div className='card'>
