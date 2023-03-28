@@ -5,19 +5,26 @@ import { API_ROUTE } from '../../App';
 import Card from './Card';
 import Loading from './Loading';
 
+interface IPopoverMenu {
+  labelText: string;
+  queryURL: string;
+}
 // duration can be tweaked at convenience
 const timeoutDuration = 120;
-export const PopoverMenu = ({ labelText, queryURL }) => {
+export const PopoverMenu = ({ labelText, queryURL }: IPopoverMenu) => {
   const triggerRef = useRef();
   const timeOutRef = useRef();
 
   const handleEnter = (isOpen: boolean) => {
     clearTimeout(timeOutRef.current);
+    // @ts-ignore
     !isOpen && triggerRef.current?.click();
   };
 
   const handleLeave = (isOpen: boolean) => {
+    // @ts-ignore
     timeOutRef.current = setTimeout(() => {
+      // @ts-ignore
       isOpen && triggerRef.current?.click();
     }, timeoutDuration);
   };
@@ -34,7 +41,12 @@ export const PopoverMenu = ({ labelText, queryURL }) => {
           onMouseEnter={() => handleEnter(open)}
           onMouseLeave={() => handleLeave(open)}
         >
-          <Popover.Button ref={triggerRef}>{labelText}</Popover.Button>
+          <Popover.Button
+            // @ts-ignore
+            ref={triggerRef}
+          >
+            {labelText}
+          </Popover.Button>
           <Transition
             as={Fragment}
             enter='transition ease-out duration-200'

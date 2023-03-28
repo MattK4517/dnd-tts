@@ -12,6 +12,7 @@ const appRoutes = [
   {
     path: '/class/:name',
     element: <ClassPage />,
+    // @ts-ignore
     loader: async ({ params }) => {
       let data = (
         await fetch(`${API_ROUTE}/api/classes/${params.name.toLowerCase()}`)
@@ -22,6 +23,7 @@ const appRoutes = [
   {
     path: '/subclass/:name',
     element: <ClassPage />,
+    // @ts-ignore
     loader: async ({ params }) => {
       console.log(name);
       let data = (
