@@ -7,10 +7,11 @@ import ClassPage from './components/classes/ClassPage';
 import SpeechComponent from './components/SpeechComponent';
 
 export var API_ROUTE = 'https://www.dnd5eapi.co';
+var BASE_ROUTE = '/dnd-tts/';
 
 const appRoutes = [
   {
-    path: '/class/:name',
+    path: BASE_ROUTE + 'class/:name',
     element: <ClassPage />,
     // @ts-ignore
     loader: async ({ params }) => {
@@ -21,7 +22,7 @@ const appRoutes = [
     },
   },
   {
-    path: '/subclass/:name',
+    path: BASE_ROUTE + 'subclass/:name',
     element: <ClassPage />,
     // @ts-ignore
     loader: async ({ params }) => {
@@ -33,9 +34,9 @@ const appRoutes = [
     },
   },
   {
-    path: '/dnd-tts/',
+    path: BASE_ROUTE,
     element: (
-      <div className='App' style={{ width: '1024px' }}>
+      <div className='App' style={{ maxWidth: '1024px' }}>
         <div className='card'>
           <SpeechComponent />
         </div>

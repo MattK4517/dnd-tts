@@ -50,8 +50,12 @@ const SpellCard = ({ spell, spellLevel }: ISpellCardProps) => {
               <span className='font-bold min-w-max h-fit'>
                 Casting above {spell.level}:
               </span>
-              {spell.higher_level.map((effect) => {
-                return <span className='text-left ml-2'>{effect}</span>;
+              {spell.higher_level.map((effect, index) => {
+                return (
+                  <span className='text-left ml-2' key={index}>
+                    {effect}
+                  </span>
+                );
               })}
             </span>
           ) : undefined}
@@ -72,7 +76,7 @@ const SpellCard = ({ spell, spellLevel }: ISpellCardProps) => {
           </span>
           <span className='w-fit'>
             <span className='font-bold'>Components: </span>
-            {spell.components.map((comp) => {
+            {spell.components.map((comp, index) => {
               if (
                 spell.components.indexOf(comp) ===
                 spell.components.length - 1

@@ -15,8 +15,11 @@ const parseSpells = ({ word, setData }: IParseSpells) => {
   if (index !== -1) {
     fetch(`${API_ROUTE}/api/spells/${handleWord(word)}/`).then((res) =>
       res.json().then((data) => {
-        console.log('HERE', { ...data, dataType: 'spell' });
-        setData((prevData) => [...prevData, { ...data, dataType: 'spell' }]);
+        setData((prevData) => {
+          if (prevData.findIndex((prev) => prev.name === data.name) === -1)
+            return [...prevData, { ...data, dataType: 'spell' }];
+          else return prevData;
+        });
       })
     );
   }
