@@ -47,7 +47,9 @@ const SpeechComponent = () => {
     findObjectWithShortenedName(transcript, 'spell').then(
       // @ts-ignore
       (res) => {
+        // @ts-ignore
         const word = res.object;
+        // @ts-ignore
         if (res.exact) parseSpells({ word, setData });
       }
       // parseSpells({res.object, setData}),
@@ -58,7 +60,9 @@ const SpeechComponent = () => {
     findObjectWithShortenedName(spell, 'spell').then(
       // @ts-ignore
       (res) => {
+        // @ts-ignore
         const word = res.object;
+        // @ts-ignore
         if (res.exact) parseSpells({ word, setData });
       }
       // parseSpells({res.object, setData}),
@@ -69,7 +73,9 @@ const SpeechComponent = () => {
     findObjectWithShortenedName(textBox, 'spell').then(
       // @ts-ignore
       (res) => {
+        // @ts-ignore
         const word = res.object;
+        // @ts-ignore
         if (res.exact) parseSpells({ word, setData });
       }
     );
